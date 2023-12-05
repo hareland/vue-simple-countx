@@ -13,6 +13,10 @@ const props = withDefaults(defineProps<{
   steps: 1,
 });
 
+const emit = defineEmits<{
+  (event: 'completed');
+}>();
+
 let iterations = 0;
 let interval: NodeJS.Timeout;
 
@@ -50,6 +54,7 @@ const unmount = () => {
 
 const intervalHandler = () => {
   if (interval && currentValue.value === targetValue.value) {
+    emit('completed');
     unmount();
     return;
   }
