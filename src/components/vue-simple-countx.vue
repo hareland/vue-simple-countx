@@ -71,6 +71,6 @@ onBeforeUnmount(unmount);
 
 defineExpose({
   reset,
-  getNextValue,
+  currentValue,
 })
 </script>
