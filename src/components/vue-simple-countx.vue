@@ -13,7 +13,6 @@ const props = withDefaults(defineProps<{
   steps: 1,
 });
 
-
 let iterations = 0;
 let interval: NodeJS.Timeout;
 
@@ -39,6 +38,16 @@ const getNextValue = () => {
   return nextValue + (props.steps + 1);
 };
 
+const mount = () => {
+  interval = setInterval(intervalHandler, props.timeout)
+}
+
+const unmount = () => {
+  if (interval) {
+    clearInterval(interval);
+  }
+}
+
 const intervalHandler = () => {
   if (interval && currentValue.value === targetValue.value) {
     unmount();
@@ -48,16 +57,6 @@ const intervalHandler = () => {
   iterations++;
 
   currentValue.value = getNextValue();
-}
-
-const mount = () => {
-  interval = setInterval(intervalHandler, props.timeout)
-}
-
-const unmount = () => {
-  if (interval) {
-    clearInterval(interval);
-  }
 }
 
 const reset = () => {
