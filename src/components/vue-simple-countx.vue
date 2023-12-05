@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   (event: 'completed');
+  (event: 'cancelled');
 }>();
 
 let iterations = 0;
@@ -46,16 +47,18 @@ const mount = () => {
   interval = setInterval(intervalHandler, props.timeout)
 }
 
-const unmount = () => {
+const clear = () => {
   if (interval) {
     clearInterval(interval);
   }
+
+  iterations = 0;
 }
 
 const intervalHandler = () => {
   if (interval && currentValue.value === targetValue.value) {
+    clear();
     emit('completed');
-    unmount();
     return;
   }
 
@@ -65,10 +68,14 @@ const intervalHandler = () => {
 }
 
 const reset = () => {
-  unmount();
-  iterations = 0;
+  clear();
   currentValue.value = initialValue.value;
   mount();
+}
+
+const unmount = () => {
+  clear();
+  emit('cancelled');
 }
 
 onBeforeMount(mount);
@@ -77,5 +84,5 @@ onBeforeUnmount(unmount);
 defineExpose({
   reset,
   currentValue,
-})
+});
 </script>
