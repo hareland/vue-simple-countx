@@ -23,5 +23,5 @@ A simple countdown/countup that is easily injectable and configurable.
 | **Parameter** | **Description**                                                                                     | **Required**/**Default** |
 |---------------|-----------------------------------------------------------------------------------------------------|--------------------------|
 | :value        | What to count to (positive/negative)                                                                | Yes                      |
-| :steps        | How many steps to jump each iteration (if there is less than steps remaining, it will count slower) | No, default `10`         |
+| :steps        | How many steps to jump each iteration (if there is less than steps remaining, it will count slower) | No, default `1`          |
 | :timeout      | Similar to setInterval by using milliseconds for iterations.                                        | No, default `100`        |
